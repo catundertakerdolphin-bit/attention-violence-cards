@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Насилие над Вниманием</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="carousel-container">
+        <!-- Progress indicator -->
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="card-nav">
+            <button class="nav-btn prev" aria-label="Previous">
+                <span class="nav-icon">&larr;</span>
+            </button>
+            <div class="card-counter">
+                <span class="current">1</span>
+                <span class="separator">/</span>
+                <span class="total">9</span>
+            </div>
+            <button class="nav-btn next" aria-label="Next">
+                <span class="nav-icon">&rarr;</span>
+            </button>
+        </nav>
+
+        <!-- Cards Container -->
+        <div class="cards-wrapper">
+
+            <!-- Card 1: Hook -->
+            <article class="card card-1" data-card="1">
+                <div class="card-inner">
+                    <div class="card-label">
+                        <span class="label-number">01</span>
+                        <span class="label-text">ХУК</span>
+                    </div>
+
+                    <div class="illustration-zone illustration-top">
+                        <div class="placeholder">
+                            <span class="placeholder-text">ILLUSTRATION</span>
+                            <span class="placeholder-hint">Рука, заносящая подзатыльник / фрагментированное лицо в свете экрана</span>
+                        </div>
+                    </div>
+
+                    <div class="content-zone">
+                        <h1 class="headline">
+                            Жестокие родители бьют детей, приговаривая:
+                            <span class="highlight">«Тебе только так понятно!»</span>
+                        </h1>
+
+                        <div class="body-text">
+                            <p>Мы выросли с добрыми родителями.</p>
+                            <p>Но нас всё равно били.</p>
+                            <p class="emphasis">Просто не они.</p>
+                        </div>
+                    </div>
+
+                    <div class="card-accent accent-blood"></div>
+                </div>
+            </article>
+
+            <!-- Card 2: Turn -->
+            <article class="card card-2" data-card="2">
+                <div class="card-inner">
+                    <div class="card-label">
+                        <span class="label-number">02</span>
+                        <span class="label-text">ПОВОРОТ</span>
+                    </div>
+
+                    <div class="content-zone content-top">
+                        <h2 class="headline headline-medium">
+                            Рилсы, хуки, кликбейты — это
+                            <span class="highlight-blue">грамматика насилия</span>
+                            над вниманием.
+                        </h2>
+
+                        <p class="statement">Не метафора. Буквально:</p>
+
+                        <div class="formula">
+                            <span class="formula-part">резкий стимул</span>
+                            <span class="formula-arrow">→</span>
+                            <span class="formula-part">дофаминовый выброс</span>
+                            <span class="formula-arrow">→</span>
+                            <span class="formula-part highlight">подчинение</span>
+                        </div>
+                    </div>
+
+                    <div class="illustration-zone illustration-middle">
+                        <div class="placeholder">
+                            <span class="placeholder-text">ILLUSTRATION</span>
+                            <span class="placeholder-hint">Схема: мозг → дофамин → зависимость / A/B тест интерфейс</span>
+                        </div>
+                    </div>
+
+                    <div class="body-text meta-text">
+                        <p class="parenthetical">(Разница с подзатыльником — в том, что подзатыльник не оптимизируют A/B-тестами на миллионе детей.)</p>
+                    </div>
+
+                    <div class="card-accent accent-blue"></div>
+                </div>
+            </article>
+
+            <!-- Card 3: History -->
+            <article class="card card-3" data-card="3">
+                <div class="card-inner">
+                    <div class="card-label">
+                        <span class="label-number">03</span>
+                        <span class="label-text">ИСТОРИЯ</span>
+                    </div>
+
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <span class="timeline-year">1890s</span>
+                            <span class="timeline-event">Жёлтая пресса изобрела заголовок-удар</span>
+                        </div>
+                        <div class="timeline-item">
+                            <span class="timeline-year">1950s</span>
+                            <span class="timeline-event">Телевидение добавило джингл и перебивку</span>
+                        </div>
+                        <div class="timeline-item">
+                            <span class="timeline-year">2005</span>
+                            <span class="timeline-event">YouTube научился считать «удержание по секундам»</span>
+                        </div>
+                        <div class="timeline-item active">
+                            <span class="timeline-year">2016</span>
+                            <span class="timeline-event">TikTok довёл до совершенства: <strong>первые 0.3 секунды решают всё</strong></span>
+                        </div>
+                    </div>
+
+                    <div class="illustration-zone illustration-bottom">
+                        <div class="placeholder">
+                            <span class="placeholder-text">ILLUSTRATION</span>
+                            <span class="placeholder-hint">Эволюция медиа: газета → ТВ → смартфон / Timeline visualization</span>
+                        </div>
+                    </div>
+
+                    <p class="parenthetical bottom-note">(Эволюция медиа как история всё более точных ударов.)</p>
+
+                    <div class="card-accent accent-yellow"></div>
+                </div>
+            </article>
+
+            <!-- Card 4: Facts -->
+            <article class="card card-4" data-card="4">
+                <div class="card-inner">
+                    <div class="card-label">
+                        <span class="label-number">04</span>
+                        <span class="label-text">ФАКТЫ</span>
+                    </div>
+
+                    <h2 class="headline headline-ironic">Нельзя не вспомнить о рыбке.</h2>
+
+                    <div class="illustration-zone illustration-featured">
+                        <div class="placeholder goldfish">
+                            <span class="placeholder-text">ILLUSTRATION</span>
+                            <span class="placeholder-hint">Золотая рыбка с глитч-эффектом / 8 vs 9 секунд инфографика</span>
+                        </div>
+                    </div>
+
+                    <div class="stats-block">
+                        <div class="stat">
+                            <span class="stat-number">12</span>
+                            <span class="stat-label">секунд<br><small>внимание (2000)</small></span>
+                        </div>
+                        <div class="stat-arrow">→</div>
+                        <div class="stat">
+                            <span class="stat-number red">8</span>
+                            <span class="stat-label">секунд<br><small>внимание (2015)</small></span>
+                        </div>
+                        <div class="stat-vs">vs</div>
+                        <div class="stat">
+                            <span class="stat-number gold">9</span>
+                            <span class="stat-label">секунд<br><small>золотая рыбка</small></span>
+                        </div>
+                    </div>
+
+                    <div class="body-text">
+                        <p class="crossed-out">Исследование Microsoft. Многократно опровергнуто.</p>
+                        <p class="emphasis">Но продолжает циркулировать — потому что <span class="highlight">работает как хук</span>.</p>
+                        <p class="parenthetical">(Мы не тупеем. Мы адаптируемся к среде, где нас постоянно бьют.)</p>
+                    </div>
+
+                    <div class="card-accent accent-gold"></div>
+                </div>
+            </article>
+
+            <!-- Card 5: Mechanics -->
+            <article class="card card-5" data-card="5">
+                <div class="card-inner">
+                    <div class="card-label">
+                        <span class="label-number">05</span>
+                        <span class="label-text">МЕХАНИКА</span>
+                    </div>
+
+                    <div class="dual-concept">
+                        <div class="concept">
+                            <span class="concept-source">Маркетологи:</span>
+                            <span class="concept-term">«Pattern Interrupt»</span>
+                        </div>
+                        <div class="concept-equals">=</div>
+                        <div class="concept">
+                            <span class="concept-source">Павлов:</span>
+                            <span class="concept-term">«Ориентировочный рефлекс»</span>
+                        </div>
+                    </div>
+
+                    <div class="illustration-zone illustration-center">
+                        <div class="placeholder">
+                            <span class="placeholder-text">ILLUSTRATION</span>
+                            <span class="placeholder-hint">Собака Павлова с смартфоном / Глаз с расширенным зрачком</span>
+                        </div>
+                    </div>
+
+                    <div class="content-zone">
+                        <p class="statement-large">Суть одна: чтобы ты посмотрел, тебя нужно</p>
+                        <div class="action-words">
+                            <span class="action">ДЁРНУТЬ</span>
+                            <span class="action">УДИВИТЬ</span>
+                            <span class="action">НАПУГАТЬ</span>
+                            <span class="action">ВОЗМУТИТЬ</span>
+                        </div>
+                    </div>
+
+                    <div class="scroll-stat">
+                        <span class="scroll-number">90 км</span>
+                        <span class="scroll-label">ленты в сутки — всё остальное фоновый шум</span>
+                    </div>
+
+                    <div class="card-accent accent-blood"></div>
+                </div>
+            </article>
+
+            <!-- Card 6: Reflection -->
+            <article class="card card-6" data-card="6">
+                <div class="card-inner">
+                    <div class="card-label">
+                        <span class="label-number">06</span>
+                        <span class="label-text">РЕФЛЕКСИЯ</span>
+                    </div>
+
+                    <h2 class="headline headline-confession">
+                        Проблема в том, что
+                        <span class="highlight-blue">это работает.</span>
+                    </h2>
+
+                    <div class="illustration-zone illustration-side">
+                        <div class="placeholder">
+                            <span class="placeholder-text">ILLUSTRATION</span>
+                            <span class="placeholder-hint">Автор/читатель смотрит на себя в зеркало экрана</span>
+                        </div>
+                    </div>
+
+                    <div class="confession-block">
+                        <p class="confession-intro">Вы дочитали до шестой карточки. Я использовал:</p>
+                        <ul class="techniques-list">
+                            <li><span class="technique">метафору насилия</span></li>
+                            <li><span class="technique">статистику про рыбку</span></li>
+                            <li><span class="technique">скобки как «подмигивание»</span></li>
+                        </ul>
+                        <p class="confession-conclusion">Каждый приём — <span class="highlight">маленький удар</span>.</p>
+                    </div>
+
+                    <div class="parenthetical meta-confession">
+                        (Написал, перечитал. Неловко. Но если бы я начал с «Внимание — сложный феномен…» — вы бы до сюда не дочитали.)
+                    </div>
+
+                    <div class="card-accent accent-mixed"></div>
+                </div>
+            </article>
+
+            <!-- Card 7: Twist -->
+            <article class="card card-7" data-card="7">
+                <div class="card-inner">
+                    <div class="card-label">
+                        <span class="label-number">07</span>
+                        <span class="label-text">ТВИСТ</span>
+                    </div>
+
+                    <div class="quote-block">
+                        <span class="quote-author">Джонатан Хайдт</span>
+                        <span class="quote-term">«Great Rewiring»</span>
+                        <span class="quote-translation">Великая Перепрошивка</span>
+                    </div>
+
+                    <div class="illustration-zone illustration-emotional">
+                        <div class="placeholder">
+                            <span class="placeholder-text">ILLUSTRATION</span>
+                            <span class="placeholder-hint">Подросток с телефоном / Нервная система как провода</span>
+                        </div>
+                    </div>
+
+                    <div class="content-zone">
+                        <p class="body-text">Поколение, выросшее со смартфонами, не просто иначе потребляет контент.</p>
+                        <p class="emphasis-large">Они иначе <span class="highlight">чувствуют</span>.</p>
+                    </div>
+
+                    <div class="stat-highlight">
+                        <span class="stat-plus">+50%</span>
+                        <span class="stat-context">тревожность у подростков с 2012 года</span>
+                    </div>
+
+                    <p class="parenthetical question">Может, не от контента — а от того, что его подают как удары?</p>
+
+                    <div class="card-accent accent-blood"></div>
+                </div>
+            </article>
+
+            <!-- Card 8: Loss -->
+            <article class="card card-8" data-card="8">
+                <div class="card-inner slow-card">
+                    <div class="card-label">
+                        <span class="label-number">08</span>
+                        <span class="label-text">ПОТЕРЯ</span>
+                    </div>
+
+                    <div class="headline-quiet">
+                        <p>Мы разучились говорить</p>
+                        <p>на языке,</p>
+                        <p>который <span class="highlight-soft">не бьёт</span>.</p>
+                    </div>
+
+                    <div class="illustration-zone illustration-quiet">
+                        <div class="placeholder placeholder-soft">
+                            <span class="placeholder-text">ILLUSTRATION</span>
+                            <span class="placeholder-hint">Пустое пространство / Книга / Тишина как визуал</span>
+                        </div>
+                    </div>
+
+                    <div class="lost-things">
+                        <p class="lost-item">Длинные предложения без перебивок.</p>
+                        <p class="lost-item">Мысль, которая разворачивается постепенно.</p>
+                        <p class="lost-item">Тишина как часть высказывания.</p>
+                    </div>
+
+                    <div class="body-text conclusion">
+                        <p>Этот язык кажется нам <span class="crossed-word">«душным»</span>, <span class="crossed-word">«скучным»</span>, <span class="crossed-word">«оторванным от реальности»</span>.</p>
+                        <p class="final-statement">Мы уже не понимаем его.</p>
+                        <p class="callback">Нам правда уже <span class="highlight">«только так и понятно»</span>.</p>
+                    </div>
+
+                    <div class="card-accent accent-fade"></div>
+                </div>
+            </article>
+
+            <!-- Card 9: Open End -->
+            <article class="card card-9" data-card="9">
+                <div class="card-inner final-card">
+                    <div class="card-label">
+                        <span class="label-number">09</span>
+                        <span class="label-text">ФИНАЛ</span>
+                    </div>
+
+                    <div class="philosopher-block">
+                        <span class="philosopher-name">Бернард Стиглер</span>
+                        <span class="philosopher-desc">философ, всю жизнь изучавший внимание</span>
+                    </div>
+
+                    <div class="illustration-zone illustration-final">
+                        <div class="placeholder placeholder-care">
+                            <span class="placeholder-text">ILLUSTRATION</span>
+                            <span class="placeholder-hint">Руки, бережно держащие / Внимание как свет</span>
+                        </div>
+                    </div>
+
+                    <div class="core-idea">
+                        <p class="idea-setup">Он считал, что внимание — это</p>
+                        <p class="idea-key">форма <span class="highlight-warm">заботы</span>.</p>
+                        <p class="idea-examples">Внимание к ребёнку, к тексту, к другому человеку.</p>
+                        <p class="idea-conclusion">Внимание как <span class="highlight-warm">«первая форма любви»</span>.</p>
+                    </div>
+
+                    <div class="final-question">
+                        <p>Что остаётся от заботы, если единственный язык, который мы понимаем —</p>
+                        <p class="question-core">это насилие над нашим вниманием?</p>
+                    </div>
+
+                    <div class="stiegler-question">
+                        <p>Стиглер бы спросил:</p>
+                        <p class="paradox">«Можно ли использовать хуки, чтобы развить <span class="highlight">long attention</span>?»</p>
+                    </div>
+
+                    <div class="no-answer">
+                        <!-- Intentionally left without answer -->
+                    </div>
+
+                    <div class="card-accent accent-warm"></div>
+                </div>
+            </article>
+
+        </div>
+
+        <!-- Swipe hint -->
+        <div class="swipe-hint">
+            <span class="swipe-icon">←</span>
+            <span class="swipe-text">свайп</span>
+            <span class="swipe-icon">→</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

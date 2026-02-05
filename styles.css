@@ -1,0 +1,992 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   ATTENTION VIOLENCE CARDS — Aesthetic System
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* === ROOT VARIABLES === */
+:root {
+    /* Core Palette */
+    --black: #0D0D0D;
+    --black-soft: #1A1A1A;
+    --white: #F5F5F0;
+    --white-dim: #E8E8E3;
+
+    /* Accent Colors */
+    --blood: #B8342A;
+    --blood-glow: rgba(184, 52, 42, 0.3);
+    --screen-blue: #4A90D9;
+    --screen-blue-glow: rgba(74, 144, 217, 0.3);
+    --yellow-press: #E8C547;
+    --yellow-glow: rgba(232, 197, 71, 0.3);
+    --gold: #D4AF37;
+    --warm: #E6C9A8;
+
+    /* Typography Scale */
+    --font-headline: 'Inter', -apple-system, sans-serif;
+    --font-body: 'Lora', Georgia, serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    /* Spacing */
+    --card-padding: clamp(24px, 5vw, 48px);
+    --card-gap: 20px;
+
+    /* Card Dimensions */
+    --card-width: min(400px, 90vw);
+    --card-height: min(700px, 85vh);
+    --card-radius: 4px;
+
+    /* Effects */
+    --noise-opacity: 0.03;
+    --scanline-opacity: 0.02;
+    --transition-fast: 0.15s ease;
+    --transition-medium: 0.3s ease;
+}
+
+/* === RESET & BASE === */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Noise overlay */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: var(--noise-opacity);
+    pointer-events: none;
+    z-index: 9999;
+}
+
+/* === CAROUSEL CONTAINER === */
+.carousel-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    position: relative;
+}
+
+/* === PROGRESS BAR === */
+.progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--black-soft);
+    z-index: 100;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 11.11%; /* 1/9 */
+    background: linear-gradient(90deg, var(--blood) 0%, var(--screen-blue) 100%);
+    transition: width var(--transition-medium);
+}
+
+/* === NAVIGATION === */
+.card-nav {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 24px;
+    z-index: 10;
+}
+
+.nav-btn {
+    background: transparent;
+    border: 1px solid var(--white);
+    color: var(--white);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-btn:hover {
+    background: var(--white);
+    color: var(--black);
+}
+
+.nav-btn:active {
+    transform: scale(0.95);
+}
+
+.card-counter {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    color: var(--white-dim);
+}
+
+.card-counter .current {
+    color: var(--white);
+    font-weight: 700;
+}
+
+/* === CARDS WRAPPER === */
+.cards-wrapper {
+    display: flex;
+    gap: var(--card-gap);
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    max-width: calc(var(--card-width) + 40px);
+    padding: 20px;
+    scrollbar-width: none;
+}
+
+.cards-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+/* === BASE CARD === */
+.card {
+    flex: 0 0 var(--card-width);
+    height: var(--card-height);
+    scroll-snap-align: center;
+    perspective: 1000px;
+}
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+    background: var(--black-soft);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--card-radius);
+    padding: var(--card-padding);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Scanlines effect */
+.card-inner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.1) 2px,
+        rgba(0, 0, 0, 0.1) 4px
+    );
+    opacity: var(--scanline-opacity);
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* === CARD LABEL === */
+.card-label {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.6;
+}
+
+.label-number {
+    color: var(--blood);
+    font-weight: 700;
+}
+
+/* === ACCENT BARS === */
+.card-accent {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+}
+
+.accent-blood {
+    background: linear-gradient(90deg, var(--blood) 0%, transparent 100%);
+}
+
+.accent-blue {
+    background: linear-gradient(90deg, var(--screen-blue) 0%, transparent 100%);
+}
+
+.accent-yellow {
+    background: linear-gradient(90deg, var(--yellow-press) 0%, transparent 100%);
+}
+
+.accent-gold {
+    background: linear-gradient(90deg, var(--gold) 0%, var(--yellow-press) 50%, transparent 100%);
+}
+
+.accent-mixed {
+    background: linear-gradient(90deg, var(--blood) 0%, var(--screen-blue) 50%, transparent 100%);
+}
+
+.accent-fade {
+    background: linear-gradient(90deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+}
+
+.accent-warm {
+    background: linear-gradient(90deg, var(--warm) 0%, var(--gold) 50%, transparent 100%);
+}
+
+/* === ILLUSTRATION ZONES === */
+.illustration-zone {
+    width: 100%;
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+}
+
+.placeholder {
+    width: 100%;
+    height: 100%;
+    min-height: 120px;
+    background:
+        linear-gradient(135deg, var(--black) 25%, transparent 25%),
+        linear-gradient(225deg, var(--black) 25%, transparent 25%),
+        linear-gradient(45deg, var(--black) 25%, transparent 25%),
+        linear-gradient(315deg, var(--black) 25%, var(--black-soft) 25%);
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 0, 10px -10px, 0 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+    padding: 20px;
+}
+
+.placeholder-text {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.placeholder-hint {
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.4);
+    text-align: center;
+    max-width: 200px;
+    line-height: 1.4;
+}
+
+/* Illustration zone sizes */
+.illustration-top {
+    flex: 0 0 35%;
+}
+
+.illustration-middle,
+.illustration-center {
+    flex: 0 0 30%;
+}
+
+.illustration-bottom {
+    flex: 0 0 25%;
+    margin-top: auto;
+}
+
+.illustration-featured {
+    flex: 0 0 40%;
+}
+
+.illustration-side {
+    flex: 0 0 25%;
+}
+
+.illustration-emotional {
+    flex: 0 0 30%;
+}
+
+.illustration-quiet {
+    flex: 1;
+    min-height: 150px;
+}
+
+.illustration-final {
+    flex: 0 0 25%;
+}
+
+/* Special placeholder styles */
+.placeholder-soft {
+    background: var(--black);
+    border-color: rgba(255, 255, 255, 0.05);
+}
+
+.placeholder-care {
+    background: linear-gradient(180deg, var(--black-soft) 0%, rgba(230, 201, 168, 0.05) 100%);
+}
+
+.goldfish .placeholder-text::after {
+    content: ' 🐟';
+    font-size: 14px;
+    opacity: 0.5;
+}
+
+/* === TYPOGRAPHY === */
+
+/* Headlines */
+.headline {
+    font-family: var(--font-headline);
+    font-weight: 900;
+    font-size: clamp(20px, 5vw, 28px);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+}
+
+.headline-medium {
+    font-size: clamp(18px, 4vw, 24px);
+}
+
+.headline-ironic {
+    font-style: italic;
+    color: var(--gold);
+}
+
+.headline-confession {
+    font-size: clamp(22px, 5vw, 30px);
+}
+
+.headline-quiet {
+    font-family: var(--font-body);
+    font-size: clamp(20px, 4.5vw, 26px);
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+.headline-quiet p {
+    margin-bottom: 0.3em;
+}
+
+/* Highlights */
+.highlight {
+    color: var(--blood);
+}
+
+.highlight-blue {
+    color: var(--screen-blue);
+}
+
+.highlight-soft {
+    color: var(--white);
+    background: linear-gradient(180deg, transparent 60%, rgba(255,255,255,0.1) 60%);
+}
+
+.highlight-warm {
+    color: var(--warm);
+}
+
+/* Body Text */
+.body-text {
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.body-text p {
+    margin-bottom: 0.8em;
+}
+
+.body-text p:last-child {
+    margin-bottom: 0;
+}
+
+/* Emphasis */
+.emphasis {
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
+.emphasis-large {
+    font-size: 1.3em;
+    font-weight: 600;
+}
+
+/* Statement */
+.statement {
+    font-family: var(--font-headline);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin: 16px 0 8px;
+}
+
+.statement-large {
+    font-family: var(--font-body);
+    font-size: 17px;
+    margin-bottom: 16px;
+}
+
+/* Parenthetical (meta-commentary) */
+.parenthetical {
+    font-style: italic;
+    font-size: 13px;
+    color: var(--white-dim);
+    opacity: 0.7;
+    line-height: 1.5;
+}
+
+.meta-text {
+    margin-top: auto;
+}
+
+.meta-confession {
+    margin-top: 16px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.02);
+    border-left: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.bottom-note {
+    margin-top: auto;
+    text-align: center;
+}
+
+/* Crossed out text */
+.crossed-out {
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
+.crossed-word {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+/* === FORMULA (Card 2) === */
+.formula {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 2px;
+}
+
+.formula-arrow {
+    color: var(--screen-blue);
+}
+
+/* === TIMELINE (Card 3) === */
+.timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-left: 20px;
+    border-left: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.timeline-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    position: relative;
+    opacity: 0.6;
+    transition: opacity var(--transition-fast);
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -25px;
+    top: 8px;
+    width: 8px;
+    height: 8px;
+    background: var(--white-dim);
+    border-radius: 50%;
+}
+
+.timeline-item.active {
+    opacity: 1;
+}
+
+.timeline-item.active::before {
+    background: var(--blood);
+    box-shadow: 0 0 10px var(--blood-glow);
+}
+
+.timeline-year {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--yellow-press);
+    letter-spacing: 0.1em;
+}
+
+.timeline-event {
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+/* === STATS (Card 4) === */
+.stats-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 20px 0;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-number {
+    font-family: var(--font-mono);
+    font-size: 36px;
+    font-weight: 700;
+    display: block;
+    line-height: 1;
+}
+
+.stat-number.red {
+    color: var(--blood);
+}
+
+.stat-number.gold {
+    color: var(--gold);
+}
+
+.stat-label {
+    font-size: 11px;
+    opacity: 0.6;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.stat-label small {
+    display: block;
+    font-size: 10px;
+    opacity: 0.8;
+}
+
+.stat-arrow,
+.stat-vs {
+    font-family: var(--font-mono);
+    font-size: 18px;
+    color: var(--white-dim);
+    opacity: 0.4;
+}
+
+/* === DUAL CONCEPT (Card 5) === */
+.dual-concept {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 2px;
+}
+
+.concept {
+    text-align: center;
+}
+
+.concept-source {
+    display: block;
+    font-size: 11px;
+    opacity: 0.5;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+}
+
+.concept-term {
+    font-family: var(--font-headline);
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.concept-equals {
+    font-family: var(--font-mono);
+    font-size: 24px;
+    color: var(--screen-blue);
+}
+
+/* Action words */
+.action-words {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.action {
+    font-family: var(--font-headline);
+    font-weight: 900;
+    font-size: 14px;
+    padding: 6px 12px;
+    background: var(--blood);
+    color: var(--white);
+    border-radius: 2px;
+    letter-spacing: 0.05em;
+}
+
+/* Scroll stat */
+.scroll-stat {
+    margin-top: auto;
+    text-align: center;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.scroll-number {
+    font-family: var(--font-mono);
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--screen-blue);
+    display: block;
+}
+
+.scroll-label {
+    font-size: 12px;
+    opacity: 0.6;
+}
+
+/* === CONFESSION (Card 6) === */
+.confession-block {
+    background: rgba(255, 255, 255, 0.02);
+    padding: 20px;
+    border-radius: 2px;
+}
+
+.confession-intro {
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.techniques-list {
+    list-style: none;
+    margin-bottom: 12px;
+}
+
+.techniques-list li {
+    padding: 6px 0;
+    padding-left: 20px;
+    position: relative;
+    font-size: 14px;
+}
+
+.techniques-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--blood);
+}
+
+.technique {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    background: rgba(184, 52, 42, 0.2);
+    padding: 2px 6px;
+    border-radius: 2px;
+}
+
+/* === QUOTE BLOCK (Card 7) === */
+.quote-block {
+    text-align: center;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+}
+
+.quote-author {
+    display: block;
+    font-size: 12px;
+    opacity: 0.5;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+}
+
+.quote-term {
+    display: block;
+    font-family: var(--font-headline);
+    font-weight: 900;
+    font-size: 24px;
+    margin-bottom: 4px;
+}
+
+.quote-translation {
+    font-style: italic;
+    font-size: 14px;
+    opacity: 0.6;
+}
+
+/* Stat highlight */
+.stat-highlight {
+    text-align: center;
+    padding: 16px;
+    background: linear-gradient(180deg, transparent 0%, rgba(184, 52, 42, 0.1) 100%);
+}
+
+.stat-plus {
+    font-family: var(--font-mono);
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--blood);
+    display: block;
+}
+
+.stat-context {
+    font-size: 13px;
+    opacity: 0.7;
+}
+
+.question {
+    text-align: center;
+    margin-top: auto;
+}
+
+/* === SLOW CARD (Card 8) === */
+.slow-card {
+    background: var(--black);
+}
+
+.lost-things {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.lost-item {
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.6;
+    padding-left: 16px;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    opacity: 0.8;
+}
+
+.conclusion {
+    margin-top: auto;
+}
+
+.final-statement {
+    font-weight: 600;
+}
+
+.callback {
+    margin-top: 8px;
+}
+
+/* === FINAL CARD (Card 9) === */
+.final-card {
+    background: linear-gradient(180deg, var(--black-soft) 0%, rgba(230, 201, 168, 0.03) 100%);
+}
+
+.philosopher-block {
+    text-align: center;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.philosopher-name {
+    display: block;
+    font-family: var(--font-headline);
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 4px;
+}
+
+.philosopher-desc {
+    font-size: 12px;
+    font-style: italic;
+    opacity: 0.6;
+}
+
+.core-idea {
+    text-align: center;
+}
+
+.idea-setup {
+    font-size: 14px;
+    opacity: 0.7;
+    margin-bottom: 4px;
+}
+
+.idea-key {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.idea-examples {
+    font-size: 13px;
+    opacity: 0.6;
+    margin-bottom: 8px;
+}
+
+.idea-conclusion {
+    font-size: 15px;
+    font-style: italic;
+}
+
+.final-question {
+    text-align: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 2px;
+}
+
+.final-question p:first-child {
+    font-size: 14px;
+    opacity: 0.7;
+    margin-bottom: 8px;
+}
+
+.question-core {
+    font-family: var(--font-headline);
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--blood);
+}
+
+.stiegler-question {
+    text-align: center;
+    margin-top: auto;
+}
+
+.stiegler-question p:first-child {
+    font-size: 12px;
+    opacity: 0.5;
+    margin-bottom: 8px;
+}
+
+.paradox {
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-style: italic;
+}
+
+/* === SWIPE HINT === */
+.swipe-hint {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 24px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.3;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.5; }
+}
+
+.swipe-icon {
+    font-size: 14px;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 480px) {
+    :root {
+        --card-padding: 20px;
+        --card-height: min(600px, 80vh);
+    }
+
+    .headline {
+        font-size: 20px;
+    }
+
+    .stats-block {
+        gap: 12px;
+    }
+
+    .stat-number {
+        font-size: 28px;
+    }
+
+    .formula {
+        font-size: 11px;
+    }
+
+    .action {
+        font-size: 12px;
+        padding: 4px 8px;
+    }
+
+    .dual-concept {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .concept-equals {
+        transform: rotate(90deg);
+    }
+}
+
+@media (min-width: 768px) {
+    .cards-wrapper {
+        max-width: calc(var(--card-width) * 1.5);
+    }
+}
+
+/* === PRINT STYLES === */
+@media print {
+    body::before {
+        display: none;
+    }
+
+    .card-nav,
+    .progress-bar,
+    .swipe-hint {
+        display: none;
+    }
+
+    .cards-wrapper {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        overflow: visible;
+    }
+
+    .card {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+}
